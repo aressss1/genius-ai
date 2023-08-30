@@ -2,12 +2,13 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import { CodeIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 // import { toast } from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
-import { CreateChatCompletionRequestMessage } from "openai/resources/chat";
+import { ChatCompletionMessage } from "openai/resources/chat";
 
 import  BotAvatar  from "@/components/bot-avatar";
 import  Heading  from "@/components/heading";
@@ -21,12 +22,12 @@ import  UserAvatar  from "@/components/user-avatar";
 import  Empty  from "@/components/empty";
 // import { useProModal } from "@/hooks/use-pro-modal";
 
-import { formSchema } from "./constants";
+import  { formSchema }  from "./constant";
 
-const ConversationPage = () => {
+const CodePage = () => {
   const router = useRouter();
-  // const proModal = useProModal();
-  const [messages, setMessages] = useState<CreateChatCompletionRequestMessage[]>([]);
+//   const proModal = useProModal();
+  const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,20 +40,20 @@ const ConversationPage = () => {
   
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: CreateChatCompletionRequestMessage = { role: "user", content: values.prompt };
+      const userMessage: ChatCompletionMessage = { role: "user", content: values.prompt };
       const newMessages = [...messages, userMessage];
       
-      const response = await axios.post('/api/conversation', { messages: newMessages });
+      const response = await axios.post('/api/code', { messages: newMessages });
       setMessages((current) => [...current, userMessage, response.data]);
       
       form.reset();
     } catch (error: any) {
-      // if (error?.response?.status === 403) {
-      //   proModal.onOpen();
-      // } else {
-      //   toast.error("Something went wrong.");
-      // }
-      console.log("Chat_Error" , error)
+    //   if (error?.response?.status === 403) {
+    //     proModal.onOpen();
+    //   } else {
+    //     toast.error("Something went wrong.");
+    //   }
+    console.log("code_error" , error)
     } finally {
       router.refresh();
     }
@@ -61,11 +62,11 @@ const ConversationPage = () => {
   return ( 
     <div>
       <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
-        icon={ChatBubbleIcon}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        title="Code Generation"
+        description="Generate code using descriptive text."
+        icon={CodeIcon}
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8">
         <div>
@@ -93,7 +94,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading} 
-                        placeholder="How do I calculate the radius of a circle?" 
+                        placeholder="Simple toggle button using react hooks." 
                         {...field}
                       />
                     </FormControl>
@@ -125,9 +126,18 @@ const ConversationPage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">
-                  {message.content}
-                </p>
+                <ReactMarkdown components={{
+                  pre: ({ node, ...props }) => (
+                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                      <pre {...props} />
+                    </div>
+                  ),
+                  code: ({ node, ...props }) => (
+                    <code className="bg-black/10 rounded-lg p-1" {...props} />
+                  )
+                }} className="text-sm overflow-hidden leading-7">
+                  {message.content || ""}
+                </ReactMarkdown>
               </div>
             ))}
           </div>
@@ -137,4 +147,4 @@ const ConversationPage = () => {
    );
 }
  
-export default ConversationPage;
+export default CodePage;
