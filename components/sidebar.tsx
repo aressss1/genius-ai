@@ -2,15 +2,16 @@
 
 import { cn } from "@/lib/utils"
 import { ChatBubbleIcon, CodeIcon, DashboardIcon, GearIcon, ImageIcon, PlayIcon, VideoIcon } from "@radix-ui/react-icons"
-// import { Montserrat } from 'next/font/google'
+import { Montserrat } from "next/font/google"
+
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-// const montserrat = Montserrat({
-//     weight: "600",
-//     subsets: ["latin"]
-// })
+const montserrat = Montserrat({
+    weight: "600",
+    subsets: ["latin"]
+})
 
 const routes = [
     {
@@ -71,8 +72,8 @@ const Sidebar = () => {
                     src="/logo.png"
                 />
             </div>
-            <h1 className={cn("text-2xl font-bold" 
-            // , montserrat.className
+            <h1 className={cn("text-2xl font-bold", 
+            montserrat.className
             )} >
                 Genius AI
             </h1>
