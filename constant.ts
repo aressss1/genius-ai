@@ -1,5 +1,7 @@
 import { ChatBubbleIcon, CodeIcon, ImageIcon, PlayIcon, VideoIcon } from "@radix-ui/react-icons"
 
+export const MAX_FREE_COUNTS = 5 ;
+
 export const tools = [
     {
       label: 'Conversation',
