@@ -7,6 +7,7 @@ import { tools } from "@/constant"
 import { Card } from "./ui/card"
 import { cn } from "@/lib/utils"
 import { CheckIcon, LightningBoltIcon } from "@radix-ui/react-icons"
+import { toast } from "react-hot-toast";
 import { Button } from "./ui/button"
 import axios from "axios"
 import { useState } from "react"
@@ -22,7 +23,7 @@ const ProModal = () => {
 
             window.location.href = response.data.url
         } catch (error) {
-            console.log(error , "STRIPE_CLIENT_ERROR")
+            toast.error("Something went wrong.")
         } finally {
             setLoading(false)
         }
@@ -33,7 +34,7 @@ const ProModal = () => {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle className="flex justify-center items-center flex-col gap-y-4 pb-2">
-                        <div className="flex items-center gap-x-2 font-bold py-1" >
+                        <div className="flex items-center gap-x-2 font-bold text-xl" >
                             Upgrade To Genius AI
                             <Badge variant="premium" className="uppercase text-sm py-1" >
                                 Pro
@@ -44,7 +45,7 @@ const ProModal = () => {
                         {tools.map((tool) => (
                             <Card
                                 key={tool.label}
-                                className="p-3 border-black/5 item-center justify-between"
+                                className="p-3 border-black/5 flex item-center  justify-between"
                             >
                                 <div className="flex items-center gap-x-4" >
                                     <div className={cn("p-2 w-fit rounded-md" , tool.bgColor)}>
@@ -61,6 +62,7 @@ const ProModal = () => {
                 </DialogHeader>
                 <DialogFooter>
                     <Button
+                        disabled={loading}
                         onClick={onSubscribe}
                         size="lg"
                         variant="premium"

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { VideoIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 
@@ -44,10 +44,9 @@ const VideoPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
-      } 
-      // else {
-      //   toast.error("Something went wrong.");
-      // }
+      } else {
+        toast.error("Something went wrong.");
+      }
     } finally {
       router.refresh();
     }

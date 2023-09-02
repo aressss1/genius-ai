@@ -5,7 +5,7 @@ import axios from "axios";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { CreateChatCompletionRequestMessage } from "openai/resources/chat";
 
@@ -49,10 +49,9 @@ const ConversationPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error("Something went wrong.");
       }
-      //  else {
-      //   toast.error("Something went wrong.");
-      // }
     } finally {
       router.refresh();
     }

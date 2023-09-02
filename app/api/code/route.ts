@@ -1,10 +1,10 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-// import { checkSubscription } from "@/lib/subscription";
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import OpenAI from "openai";
 import { ChatCompletionMessage } from "openai/resources/chat";
+import { checkSubscription } from "@/lib/subscription";
 
 const openai  = new OpenAI({
     apiKey: `${process.env.OPENAI_API_KEY}`,
@@ -36,7 +36,7 @@ export async function POST(
     }
 
     const freeTrial = await checkApiLimit();
-    // const isPro = await checkSubscription();
+    const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro) {
       return new NextResponse("Free trial has expired. Please upgrade to Pro.", { status: 403 });

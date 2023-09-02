@@ -5,7 +5,7 @@ import axios from "axios";
 import { CodeIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
 import { ChatCompletionMessage } from "openai/resources/chat";
@@ -50,10 +50,9 @@ const CodePage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
-      } 
-      // else {
-      //   toast.error("Something went wrong.");
-      // }
+      } else {
+        toast.error("Something went wrong.");
+      }
     } finally {
       router.refresh();
     }

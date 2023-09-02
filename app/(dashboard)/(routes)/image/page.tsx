@@ -7,7 +7,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DownloadIcon , ImageIcon } from "@radix-ui/react-icons"; 
 import { useForm } from "react-hook-form";
-// import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import  Heading  from "@/components/heading";
@@ -50,10 +50,9 @@ const PhotoPage = () => {
     } catch (error: any) {
       if (error?.response?.status === 403) {
         proModal.onOpen();
+      } else {
+        toast.error("Something went wrong.");
       }
-      //  else {
-      //   toast.error("Something went wrong.");
-      // }
     } finally {
       router.refresh();
     }
