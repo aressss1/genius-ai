@@ -1,11 +1,16 @@
+import { LandingContent } from '@/components/landing-content'
+import { LandingHero } from '@/components/landing-hero'
+import { LandingNavbar } from '@/components/landing-navbar'
 import React from 'react'
 
-const Page = () => {
+const LandingPage = () => {
   return (
-    <div>
-            Landing Page
+    <div className='h-full'>
+      <LandingNavbar />
+      <LandingHero />
+      <LandingContent />
     </div>
   )
 }
 
-export default Page
+export default LandingPage
