@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils"
 
-import { Montserrat } from "next/font/google"
 
 import Image from "next/image"
 import Link from "next/link"
@@ -10,6 +9,7 @@ import { usePathname } from "next/navigation"
 import FreeCounter from "./free-counter"
 import { routes } from "@/constant"
 import { Badge } from "./ui/badge"
+import { Montserrat } from "next/font/google"
 
 const montserrat = Montserrat({
     weight: "600",
