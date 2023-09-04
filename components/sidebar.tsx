@@ -44,7 +44,7 @@ const Sidebar = ({
                     )} >
                         Genius AI
                         {isPro && (
-                            <Badge variant="premium" className="uppercase text-sm py-1" >
+                            <Badge variant="premium" className="uppercase text-sm py-1 mx-1 rounded-md" >
                                 Pro
                             </Badge>
                         )}
