@@ -24,7 +24,7 @@
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next13-ai-saas.git
+git clone https://github.com/aressss1/saas-ai-platform.git
 ```
 
 ### Install packages
